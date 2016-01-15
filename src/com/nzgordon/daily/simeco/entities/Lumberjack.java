@@ -12,27 +12,9 @@ public class Lumberjack extends Occupant {
     }
 
     @Override
-    public void behave(World world) {
-        super.behave(world);
-        int max = maxStepsPerMonth();
-        // Walk
-        for (int step=0;step<max;step++) {
-            if (!doRandomStep(world)) {
-                step--;
-                continue;
-            }
-            if (isColliding()) {
-                Set<Occupant> neighbours = getCollidedWith();
-                boolean stop = false;
-                for (Occupant neighbour : neighbours) {
-                    Reaction reaction = react(neighbour);
-                    if (reaction != Reaction.NOTHING) {
-                        stop = true;
-                    }
-                }
-                if (stop) break; // Stop walking for the month.
-            }
-        }
+    public void behave() {
+        super.behave();
+        wander();
     }
 
     @Override

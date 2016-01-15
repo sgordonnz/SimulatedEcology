@@ -18,9 +18,9 @@ public class World {
 
     public World(int size) {
         _map = new Spot[size][size];
-        for (int i=0;i<_map.length;++i) {
-            for (int j=0;j<_map[i].length;++j) {
-                _map[i][j] = new Spot(new Location(i, j));
+        for (int x=0;x<_map.length;++x) {
+            for (int y=0;y<_map[x].length;++y) {
+                _map[x][y] = new Spot(x, y, this);
             }
         }
         _boundary = size;
@@ -58,7 +58,7 @@ public class World {
         Set<Occupant> dead = new HashSet<>();
         for (Occupant o : _occupants) {
             if (!o.isAlive()) dead.add(o);
-            else o.behave(this);
+            else o.behave();
         }
         _occupants.removeAll(dead);
     }

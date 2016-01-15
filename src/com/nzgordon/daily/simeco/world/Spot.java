@@ -8,13 +8,23 @@ import java.util.Set;
 public class Spot {
     private Set<Occupant> occupants = new HashSet<>();
     private Location location;
+    private World world;
 
-    public Spot(Location location) {
+    public Spot(Location location, World world) {
         this.location = location;
+        this.world = world;
+    }
+
+    public Spot(int x, int y, World world) {
+        this(new Location(x,y), world);
     }
 
     public Location getLocation() {
         return location;
+    }
+
+    public World getWorld() {
+        return world;
     }
 
     public boolean isOccupied() {

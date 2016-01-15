@@ -12,8 +12,8 @@ public class Tree extends Occupant {
     }
 
     @Override
-    public void behave(World world) {
-        super.behave(world);
+    public void behave() {
+        super.behave();
     }
 
     @Override
