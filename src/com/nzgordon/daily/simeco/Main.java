@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         int month = 0;
         World world = new World(WORLD_SIZE);
-	    while(month < MAX_WORLD_LIFE) {
+        while(month < MAX_WORLD_LIFE) {
             world.tick();
             month++;
         }

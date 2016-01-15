@@ -33,6 +33,10 @@ public abstract class Occupant {
         return _spot.getLocation();
     }
 
+    public World getWorld() {
+        return _spot.getWorld();
+    }
+
     public void die() {
         _spot.removeOccupant(this);
         _spot = null;
@@ -43,7 +47,7 @@ public abstract class Occupant {
         return alive;
     }
 
-    public void behave(World world) {
+    public void behave() {
         // Increase age
         age();
         // Overrides
@@ -72,7 +76,8 @@ public abstract class Occupant {
         return _spot.getNeighbours(this);
     }
 
-    protected boolean doRandomStep(World world) {
+    protected boolean doRandomStep() {
+        World world = getWorld();
         Location l = getLocation();
         int x = l.getX();
         int y = l.getY();
@@ -97,6 +102,26 @@ public abstract class Occupant {
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    protected void wander() {
+        for (int step=0;step<maxStepsPerMonth();step++) {
+            if (!doRandomStep()) {
+                step--;
+                continue;
+            }
+            if (isColliding()) {
+                Set<Occupant> neighbours = getCollidedWith();
+                boolean stop = false;
+                for (Occupant neighbour : neighbours) {
+                    Reaction reaction = react(neighbour);
+                    if (reaction != Reaction.NOTHING) {
+                        stop = true;
+                    }
+                }
+                if (stop) break;
+            }
         }
     }
 

@@ -13,20 +13,10 @@ public class Bear extends Occupant {
     }
 
     @Override
-    public void behave(World world) {
-        super.behave(world);
-        int max = maxStepsPerMonth();
+    public void behave() {
+        super.behave();
         // Walk
-        for (int step=0;step<max;step++) {
-            if (!doRandomStep(world)) {
-                step--;
-                continue;
-            }
-            if (isColliding()) {
-                Set<Occupant> neighbours = getCollidedWith();
-                for (Occupant neighbour : neighbours) react(neighbour);
-            }
-        }
+        wander();
     }
 
     @Override
